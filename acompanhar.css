@@ -1,0 +1,83 @@
+/* Textos de abertura */
+.form-page h1.centro {
+  text-align: center;
+  margin-bottom: 14px;
+}
+.sub {
+  text-align: center;
+  font-size: 1.05rem;
+  margin: 0 4px 36px;
+}
+
+/* Campos com borda clara, como no Figma */
+#form input[type="text"] {
+  border-color: #ddd;
+  background: #fff;
+}
+.erro-geral {
+  margin-top: 18px;
+  text-align: center;
+}
+
+/* Resultado */
+.resultado {
+  margin-top: 28px;
+  padding: 20px 16px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+.resultado[hidden] { display: none; }
+.resultado h2 {
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+.resultado h3 {
+  margin-top: 18px;
+  font-size: .95rem;
+  font-weight: 600;
+}
+.status {
+  display: inline-block;
+  margin: 8px 0 12px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: var(--azul-claro);
+  font-size: .9rem;
+  font-weight: 500;
+}
+.meta {
+  font-size: .9rem;
+  color: var(--cinza);
+}
+.linha {
+  list-style: none;
+  margin: 14px 0 0 6px;
+  padding-left: 18px;
+  border-left: 2px solid #bcd;
+}
+.linha li {
+  position: relative;
+  margin-bottom: 16px;
+  font-size: .9rem;
+}
+.linha li::before {
+  content: "";
+  position: absolute;
+  left: -25px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--azul);
+}
+.linha time {
+  display: block;
+  font-size: .8rem;
+  color: var(--cinza);
+}
+
+body.alto-contraste .resultado { background: #000; border-color: #ff0; }
+body.alto-contraste .status { background: #ff0; color: #000; }
+body.alto-contraste .meta,
+body.alto-contraste .linha time { color: #ddd; }

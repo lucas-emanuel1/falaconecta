@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Acompanhar solicitação - FalaConecta</title>
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Css -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="reclamacao.css">
+  <link rel="stylesheet" href="acompanhar.css">
+</head>
+<body>
+
+  <!-- Acessibilidade -->
+  <div class="acessibilidade">
+    <a href="#" class="acessibilidade-link">
+      <img src="imagens/acessibilidade.png" width="20" height="20" alt="">
+      Acessibilidade
+    </a>
+    <button type="button" id="font-minus" aria-label="Diminuir fonte">a-</button>
+    <button type="button" id="font-plus" aria-label="Aumentar fonte">A+</button>
+    <button type="button" id="contrast" class="contraste-btn" aria-label="Alternar alto contraste"></button>
+  </div>
+
+  <!-- Header -->
+  <header class="topo">
+    <nav class="nav">
+      <a href="index.html" class="logo">
+        <img src="imagens/logo.png" alt="Logo FalaConecta" width="44" height="44">
+        <span>FalaConecta</span>
+      </a>
+      <button class="menu-btn" id="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <ul class="menu" id="menu" hidden>
+      <li><a href="reclamacao.html">Fazer uma reclamação</a></li>
+      <li><a href="sugestao.html">Enviar uma sugestão</a></li>
+      <li><a href="acompanhar.html">Acompanhar solicitação</a></li>
+      <li><a href="index.html#faq">Perguntas frequentes</a></li>
+    </ul>
+  </header>
+
+  <main class="form-page">
+    <h1 class="centro">Consulte sua manifestação</h1>
+    <p class="sub">Acompanhe o andamento e consulte as atualizações da sua manifestação</p>
+
+    <form id="form" novalidate>
+      <fieldset>
+        <legend>Informe os dados</legend>
+
+        <div class="campo">
+          <label for="protocolo">Número do protocolo</label>
+          <input type="text" id="protocolo" name="protocolo" placeholder="Ex.: SB-2026-00842" autocomplete="off" autocapitalize="characters" spellcheck="false">
+        </div>
+
+        <div class="campo">
+          <label for="codigo">Código de acesso</label>
+          <input type="text" id="codigo" name="codigo" placeholder="Digite seu código de acesso" autocomplete="off" autocapitalize="characters" spellcheck="false">
+        </div>
+
+        <p class="erro erro-geral" id="erro" role="alert" hidden></p>
+        <button type="submit" class="enviar" id="botao">Acompanhar</button>
+      </fieldset>
+    </form>
+
+    <section class="resultado" id="resultado" aria-live="polite" hidden>
+      <h2 id="r-protocolo"></h2>
+      <span class="status" id="r-status"></span>
+      <p class="meta" id="r-meta"></p>
+      <h3>Andamento</h3>
+      <ol class="linha" id="r-historico"></ol>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+  <script src="acompanhar.js"></script>
+</body>
+</html>

@@ -2,7 +2,6 @@ const form = document.getElementById('form');
 const extra = document.getElementById('extra');
 const nome = document.getElementById('nome');
 const email = document.getElementById('email');
-const sucesso = document.getElementById('sucesso');
 
 /* ---------- Anônima x Identificada ---------- */
 function atualizarTipo() {
@@ -34,7 +33,6 @@ function limparErro(campo) { campo.classList.remove('invalido'); msgDe(campo).hi
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
-  sucesso.hidden = true;
 
   const regras = [
     [document.getElementById('bairro'), (c) => c.value !== ''],
@@ -56,15 +54,74 @@ form.addEventListener('submit', (e) => {
   });
   if (primeiro) { primeiro.focus(); return; }
 
-  // TODO: enviar os dados para o servidor aqui (fetch/Supabase)
-  console.log(Object.fromEntries(new FormData(form)));
+  // 1) Descobre qual opção está marcada: "anonima" ou "identificada"
+  const tipo = form.tipo.value;
 
-  sucesso.hidden = false;
+  // TODO: enviar os dados ao servidor (fetch/Supabase). O protocolo e o código
+  // reais devem vir da resposta do servidor, no lugar de dadosDeTeste().
+  const dados = Object.fromEntries(new FormData(form));
+  console.log(dados);
+  const resposta = dadosDeTeste();
+
   form.reset();
   preview.hidden = true;
   dropzone.classList.remove('tem-foto');
   atualizarTipo();
+
+  // 2) Abre o modal certo para o tipo escolhido
+  abrirModal(tipo, resposta);
 });
+
+/* ---------- Modal ---------- */
+const modal = document.getElementById('modal');
+
+const TEXTOS = {
+  anonima: {
+    titulo: 'Manifestação enviada!',
+    texto: 'Sua reclamação foi registrada com sucesso. Guarde os dados abaixo para acompanhar o andamento.',
+  },
+  identificada: {
+    titulo: 'Manifestação registrada com sucesso!',
+    texto: 'Enviamos um protocolo e uma chave de acesso para o email cadastrado, utilize-os para acompanhar o seu processo.',
+  },
+};
+
+function abrirModal(tipo, { protocolo, codigo }) {
+  const t = TEXTOS[tipo];
+  document.getElementById('modal-titulo').textContent = t.titulo;
+  document.getElementById('modal-texto').textContent = t.texto;
+  document.getElementById('m-protocolo').textContent = protocolo;
+  document.getElementById('m-codigo').textContent = codigo;
+  modal.showModal();
+}
+
+// X, "Encerrar", tecla Esc e clique fora fecham o modal; ao fechar, volta para o início
+modal.querySelectorAll('[data-fechar]').forEach((b) => b.addEventListener('click', () => modal.close()));
+modal.addEventListener('click', (e) => { if (e.target === modal) modal.close(); });
+modal.addEventListener('close', () => { window.location.href = 'index.html'; });
+
+// Botões de copiar
+modal.querySelectorAll('.copiar').forEach((btn) => {
+  btn.addEventListener('click', async () => {
+    const texto = document.getElementById(btn.dataset.alvo).textContent;
+    try {
+      await navigator.clipboard.writeText(texto);
+      btn.classList.add('copiado');
+      setTimeout(() => btn.classList.remove('copiado'), 1500);
+    } catch {
+      alert('Não foi possível copiar. Selecione o texto e copie manualmente.');
+    }
+  });
+});
+
+/* ---------- Dados de teste (APAGAR quando ligar o servidor) ---------- */
+function dadosDeTeste() {
+  const ano = new Date().getFullYear();
+  const numero = String(Math.floor(Math.random() * 99999) + 1).padStart(5, '0');
+  const letras = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const s = [...crypto.getRandomValues(new Uint8Array(8))].map((n) => letras[n % letras.length]).join('');
+  return { protocolo: `SB-${ano}-${numero}`, codigo: `${s.slice(0, 4)}-${s.slice(4)}` };
+}
 
 // Tira o aviso de erro assim que o usuário corrige
 ['input', 'change'].forEach((ev) =>

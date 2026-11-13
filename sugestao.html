@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Enviar uma sugestão - FalaConecta</title>
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Css -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="reclamacao.css">
+  <link rel="stylesheet" href="sugestao.css">
+</head>
+<body>
+
+  <!-- Acessibilidade -->
+  <div class="acessibilidade">
+    <a href="#" class="acessibilidade-link">
+      <img src="imagens/acessibilidade.png" width="20" height="20" alt="">
+      Acessibilidade
+    </a>
+    <button type="button" id="font-minus" aria-label="Diminuir fonte">a-</button>
+    <button type="button" id="font-plus" aria-label="Aumentar fonte">A+</button>
+    <button type="button" id="contrast" class="contraste-btn" aria-label="Alternar alto contraste"></button>
+  </div>
+
+  <!-- Header -->
+  <header class="topo">
+    <nav class="nav">
+      <a href="index.html" class="logo">
+        <img src="imagens/logo.png" alt="Logo FalaConecta" width="44" height="44">
+        <span>FalaConecta</span>
+      </a>
+      <button class="menu-btn" id="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <ul class="menu" id="menu" hidden>
+      <li><a href="reclamacao.html">Fazer uma reclamação</a></li>
+      <li><a href="sugestao.html">Enviar uma sugestão</a></li>
+      <li><a href="acompanhar.html">Acompanhar solicitação</a></li>
+      <li><a href="index.html#faq">Perguntas frequentes</a></li>
+    </ul>
+  </header>
+
+  <main class="form-page">
+    <h1 class="centro">Sua Opinião Importa</h1>
+    <p class="sub">Use este canal para enviar suas ideias e feedbacks. Analisamos todas as mensagens recebidas para construir soluções cada vez melhores. Obrigado por contribuir!</p>
+
+    <form id="form" novalidate>
+      <fieldset>
+        <legend>Preencha os campos</legend>
+
+        <div class="campo">
+          <label for="tipo">Tipo de Sugestão</label>
+          <div class="select-wrap">
+            <select id="tipo" name="tipo" required>
+              <option value="" disabled selected>Selecione</option>
+              <option>Melhoria de um serviço público</option>
+              <option>Nova ideia ou projeto</option>
+              <option>Elogio</option>
+              <option>Feedback sobre a plataforma</option>
+              <option>Outros</option>
+            </select>
+          </div>
+          <p class="erro" hidden>Selecione o tipo de sugestão.</p>
+        </div>
+
+        <div class="campo">
+          <label for="descricao">Descrição da Ideia ou Feedback</label>
+          <textarea id="descricao" name="descricao" rows="6" placeholder="Descreva detalhadamente a sua sugestão ou o ponto de melhoria" required></textarea>
+          <p class="erro" hidden>Descreva sua sugestão (mínimo de 10 caracteres).</p>
+        </div>
+
+        <div class="campo">
+          <span class="label" id="arquivos-label">Anexar arquivos <small>(opcional)</small></span>
+          <label class="dropzone" for="arquivos" aria-labelledby="arquivos-label">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 4H11a4 4 0 0 0-4 4v20a4 4 0 0 0 4 4h14a4 4 0 0 0 4-4V13z"/><path d="M20 4v6a3 3 0 0 0 3 3h6"/><path d="M18 26v-9M14 20.5l4-4 4 4"/></svg>
+          </label>
+          <input type="file" id="arquivos" name="arquivos" class="sr-only" multiple accept="image/*,.pdf,.doc,.docx">
+          <p class="dica-arquivos">Até 5 arquivos de 5 MB (imagens, PDF ou Word).</p>
+          <ul class="lista-arquivos" id="lista-arquivos"></ul>
+          <p class="erro" id="erro-arquivos" hidden></p>
+        </div>
+
+        <button type="submit" class="enviar">Enviar</button>
+        <p class="sucesso" id="sucesso" role="status" hidden>Sugestão enviada! Obrigado por contribuir.</p>
+      </fieldset>
+    </form>
+  </main>
+
+  <script src="script.js"></script>
+  <script src="sugestao.js"></script>
+</body>
+</html>

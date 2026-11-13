@@ -14,6 +14,7 @@
 </head>
 <body>
 
+  <!-- Acessibilidade -->
   <div class="acessibilidade">
     <a href="#" class="acessibilidade-link">
       <img src="imagens/acessibilidade.png" width="20" height="20" alt="">
@@ -24,6 +25,7 @@
     <button type="button" id="contrast" class="contraste-btn" aria-label="Alternar alto contraste"></button>
   </div>
 
+  <!-- Header -->
   <header class="topo">
     <nav class="nav">
       <a href="index.html" class="logo">
@@ -42,6 +44,7 @@
     </ul>
   </header>
 
+  <!-- Formulário -->
   <main class="form-page">
     <h1>Queremos ouvir você</h1>
 
@@ -53,17 +56,45 @@
           <label for="bairro">Bairro da ocorrência <span class="obrig" aria-hidden="true">*</span></label>
           <div class="select-wrap">
             <select id="bairro" name="bairro" required>
-              <option value="">Selecione</option>
+              <option value="" selected disabled>Selecione</option>
               <option>Alto da Brasília</option>
+              <option>Alto da Expectativa</option>
+              <option>Alto do Cristo</option>
+              <option>Alto Novo</option>
+              <option>Belchior</option>
+              <option>Campo dos Velhos</option>
               <option>Centro</option>
-              <option>Cohab I</option>
-              <option>Cohab II</option>
+              <option>Cidade Gerardo Cristino de Menezes</option>
+              <option>Cidade Pedro Mendes Carneiro</option>
+              <option>COHAB I</option>
+              <option>COHAB II</option>
+              <option>COHAB III</option>
+              <option>Coração de Jesus</option>
+              <option>Das Nações</option>
+              <option>Distrito Industrial</option>
               <option>Dom Expedito</option>
+              <option>Dom José</option>
+              <option>Domingos Olímpio</option>
+              <option>Dr. Juvêncio de Andrade</option>
+              <option>Edmundo Monte Coelho</option>
+              <option>Expectativa</option>
+              <option>Jatobá</option>
+              <option>Jerônimo de Medeiros Prado</option>
+              <option>Jocely Dantas</option>
+              <option>Juazeiro</option>
               <option>Junco</option>
+              <option>Nossa Senhora de Fátima</option>
+              <option>Nova Caiçara</option>
+              <option>Novo Recanto</option>
+              <option>Padre Ibiapina</option>
+              <option>Padre Palhano</option>
+              <option>Parque Silvana</option>
               <option>Pedrinhas</option>
               <option>Renato Parente</option>
+              <option>Sinhá Sabóia</option>
               <option>Sumaré</option>
-              <option>Vila União</option>
+              <option>Terrenos Novos</option>
+              <option>Várzea Grande</option>
             </select>
           </div>
           <p class="erro" hidden>Selecione o bairro.</p>
@@ -111,6 +142,7 @@
           <textarea id="descricao" name="descricao" rows="6" placeholder="Fale um pouco sobre sua reclamação"></textarea>
         </div>
 
+        <!-- Tipo de reclamação -->
         <div class="opcao">
           <label class="check">
             <input type="radio" name="tipo" value="anonima" checked>
@@ -129,6 +161,7 @@
           <p class="dica">Alguns dados serão necessários</p>
         </div>
 
+        <!-- Aparece só se for identificada -->
         <div class="extra" id="extra" hidden>
           <h2>Queremos conhecer você!</h2>
           <p class="lead">Informe seus dados para que possamos manter contato sobre sua manifestação.</p>
@@ -149,6 +182,7 @@
           </div>
         </div>
 
+        <!-- Termos e Política -->
         <div class="opcao termos">
           <label class="check">
             <input type="checkbox" id="aceite" name="aceite">
@@ -159,13 +193,13 @@
         </div>
 
         <button type="submit" class="enviar">Enviar</button>
-        <p class="sucesso" id="sucesso" role="status" hidden>Reclamação enviada com sucesso!</p>
       </fieldset>
     </form>
   </main>
 
+  <!-- Footer -->
   <footer class="footer">
-    <div class="footer-logo">
+    <div class="footer-marca">
       <img src="imagens/logo.png" alt="" width="40" height="40">
       <div>
         <strong>FalaConecta</strong>
@@ -207,6 +241,30 @@
 
     <p class="copy">© Todos os direitos reservados</p>
   </footer>
+
+  <!-- Modal de confirmação -->
+  <dialog id="modal" class="modal" aria-labelledby="modal-titulo" aria-describedby="modal-texto">
+    <button type="button" class="modal-x" data-fechar aria-label="Fechar">&times;</button>
+    <div class="modal-icone" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a9a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l3 3 5-6"/></svg>
+    </div>
+    <h2 id="modal-titulo"></h2>
+    <p id="modal-texto" class="modal-texto"></p>
+
+    <h3>NÚMERO DO PROTOCOLO</h3>
+    <div class="dado">
+      <span id="m-protocolo"></span>
+      <button type="button" class="copiar" data-alvo="m-protocolo" aria-label="Copiar número do protocolo"><svg class="i-copiar" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="3"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><svg class="i-ok" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a9a4a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>
+    </div>
+
+    <h3>CÓDIGO DE ACESSO</h3>
+    <div class="dado">
+      <span id="m-codigo"></span>
+      <button type="button" class="copiar" data-alvo="m-codigo" aria-label="Copiar código de acesso"><svg class="i-copiar" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="3"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><svg class="i-ok" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a9a4a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>
+    </div>
+
+    <button type="button" class="enviar modal-encerrar" data-fechar>Encerrar</button>
+  </dialog>
 
   <script src="script.js"></script>
   <script src="reclamacao.js"></script>
