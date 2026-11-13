@@ -113,6 +113,7 @@ button {
   list-style: none;
   background: var(--azul-escuro);
   padding: 8px 16px;
+  color: white;
 }
 .menu li a {
   display: block;
