@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Acesso da Equipe - FalaConecta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="moderador.css">
+</head>
+<body class="login-page">
+  <main class="login">
+    <img src="imagens/logo.png" alt="">
+    <h1>Acesso da Equipe</h1>
+    <p class="sub">Moderadores e órgãos responsáveis: entre com seu email e senha.</p>
+
+    <form id="form-login" novalidate>
+      <label for="email">Email</label>
+      <input type="email" id="email" autocomplete="username">
+      <label for="senha">Senha</label>
+      <input type="password" id="senha" autocomplete="current-password">
+      <p class="erro" id="erro" role="alert" hidden></p>
+      <button type="submit" class="btn" id="botao">Entrar</button>
+    </form>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="api.js"></script>
+  <script src="moderador-login.js"></script>
+</body>
+</html>

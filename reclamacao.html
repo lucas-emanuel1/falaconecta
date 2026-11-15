@@ -29,7 +29,7 @@
   <header class="topo">
     <nav class="nav">
       <a href="index.html" class="logo">
-        <img src="imagens/logo.png" alt="Logo FalaConecta" width="44" height="44">
+        <img src="imagens/logo.png" alt="Logo FalaConecta">
         <span>FalaConecta</span>
       </a>
       <button class="menu-btn" id="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
@@ -44,7 +44,6 @@
     </ul>
   </header>
 
-  <!-- Formulário -->
   <main class="form-page">
     <h1>Queremos ouvir você</h1>
 
@@ -56,45 +55,17 @@
           <label for="bairro">Bairro da ocorrência <span class="obrig" aria-hidden="true">*</span></label>
           <div class="select-wrap">
             <select id="bairro" name="bairro" required>
-              <option value="" selected disabled>Selecione</option>
+              <option value="">Selecione</option>
               <option>Alto da Brasília</option>
-              <option>Alto da Expectativa</option>
-              <option>Alto do Cristo</option>
-              <option>Alto Novo</option>
-              <option>Belchior</option>
-              <option>Campo dos Velhos</option>
               <option>Centro</option>
-              <option>Cidade Gerardo Cristino de Menezes</option>
-              <option>Cidade Pedro Mendes Carneiro</option>
-              <option>COHAB I</option>
-              <option>COHAB II</option>
-              <option>COHAB III</option>
-              <option>Coração de Jesus</option>
-              <option>Das Nações</option>
-              <option>Distrito Industrial</option>
+              <option>Cohab I</option>
+              <option>Cohab II</option>
               <option>Dom Expedito</option>
-              <option>Dom José</option>
-              <option>Domingos Olímpio</option>
-              <option>Dr. Juvêncio de Andrade</option>
-              <option>Edmundo Monte Coelho</option>
-              <option>Expectativa</option>
-              <option>Jatobá</option>
-              <option>Jerônimo de Medeiros Prado</option>
-              <option>Jocely Dantas</option>
-              <option>Juazeiro</option>
               <option>Junco</option>
-              <option>Nossa Senhora de Fátima</option>
-              <option>Nova Caiçara</option>
-              <option>Novo Recanto</option>
-              <option>Padre Ibiapina</option>
-              <option>Padre Palhano</option>
-              <option>Parque Silvana</option>
               <option>Pedrinhas</option>
               <option>Renato Parente</option>
-              <option>Sinhá Sabóia</option>
               <option>Sumaré</option>
-              <option>Terrenos Novos</option>
-              <option>Várzea Grande</option>
+              <option>Vila União</option>
             </select>
           </div>
           <p class="erro" hidden>Selecione o bairro.</p>
@@ -135,6 +106,7 @@
             <img id="preview" alt="Pré-visualização da foto enviada" hidden>
           </label>
           <input type="file" id="foto" name="foto" accept="image/*" class="sr-only">
+          <p class="erro" id="erro-foto" role="alert" hidden></p>
         </div>
 
         <div class="campo">
@@ -182,7 +154,6 @@
           </div>
         </div>
 
-        <!-- Termos e Política -->
         <div class="opcao termos">
           <label class="check">
             <input type="checkbox" id="aceite" name="aceite">
@@ -192,12 +163,16 @@
           <p class="erro" hidden>Aceite os termos para enviar.</p>
         </div>
 
+        <!-- Campo-isca: invisível para pessoas; robôs costumam preencher -->
+        <div class="isca" aria-hidden="true">
+          <label>Não preencha este campo <input type="text" name="site" tabindex="-1" autocomplete="off"></label>
+        </div>
+
         <button type="submit" class="enviar">Enviar</button>
       </fieldset>
     </form>
   </main>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="footer-logo">
       <img src="imagens/logo.png" alt="" width="40" height="40">
@@ -242,7 +217,7 @@
     <p class="copy">© Todos os direitos reservados</p>
   </footer>
 
-  <!-- Modal de confirmação -->
+  <!-- Modal de confirmação (o texto muda conforme anônima ou identificada) -->
   <dialog id="modal" class="modal" aria-labelledby="modal-titulo" aria-describedby="modal-texto">
     <button type="button" class="modal-x" data-fechar aria-label="Fechar">&times;</button>
     <div class="modal-icone" aria-hidden="true">
@@ -266,6 +241,9 @@
     <button type="button" class="enviar modal-encerrar" data-fechar>Encerrar</button>
   </dialog>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="api.js"></script>
   <script src="script.js"></script>
   <script src="reclamacao.js"></script>
 </body>

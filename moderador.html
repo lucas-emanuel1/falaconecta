@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Painel do Moderador - FalaConecta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="moderador.css">
+</head>
+<body>
+  <header class="topo-mod">
+    <div class="marca">
+      <img src="imagens/logo.png" alt="">
+      <span>FalaConecta</span>
+    </div>
+    <div class="quem">
+      <span id="nome-moderador"></span>
+      <button type="button" class="sair" id="sair">Sair</button>
+    </div>
+  </header>
+
+  <main class="painel" id="painel" hidden>
+    <h1>Acesso Moderador</h1>
+    <p class="subtitulo">Gerenciamento de Solicitações</p>
+    <div class="divisor" role="separator"></div>
+
+    <h2>Filtros</h2>
+    <form class="filtros" id="filtros">
+      <div>
+        <label for="f-tipo">Tipo de Manifestação</label>
+        <select id="f-tipo">
+          <option value="">Selecione</option>
+          <option value="reclamacao">Reclamação</option>
+          <option value="sugestao">Sugestão</option>
+        </select>
+      </div>
+      <div>
+        <label for="f-bairro">Bairro</label>
+        <select id="f-bairro"><option value="">Selecione</option></select>
+      </div>
+      <div>
+        <label for="f-categoria">Categoria</label>
+        <select id="f-categoria"><option value="">Selecione</option></select>
+      </div>
+      <div>
+        <label for="f-status">Status</label>
+        <select id="f-status">
+          <option value="">Selecione</option>
+          <option value="nova">Recebida</option>
+          <option value="em_analise">Em análise</option>
+          <option value="encaminhada">Encaminhada</option>
+          <option value="em_atendimento">Em atendimento</option>
+          <option value="concluida">Concluída</option>
+          <option value="arquivada">Arquivada</option>
+        </select>
+      </div>
+    </form>
+    <div class="filtros-botoes">
+      <button type="button" class="btn" id="btn-filtrar">Filtrar</button>
+      <button type="button" class="btn" id="btn-limpar">Limpar</button>
+    </div>
+
+    <h2>Solicitações</h2>
+    <div class="tabela-caixa">
+      <div class="barra">
+        <input type="search" class="busca" id="busca" placeholder="Pesquisar" aria-label="Pesquisar solicitações">
+        <span class="total" id="total" aria-live="polite"></span>
+      </div>
+      <div class="rolagem">
+        <table>
+          <thead>
+            <tr>
+              <th><button type="button" data-col="protocolo">Protocolo</button></th>
+              <th><button type="button" data-col="criada_em">Data</button></th>
+              <th><button type="button" data-col="tipo">Tipo</button></th>
+              <th><button type="button" data-col="categoria">Categoria</button></th>
+              <th><button type="button" data-col="bairro">Bairro</button></th>
+              <th><button type="button" data-col="rua">Rua</button></th>
+              <th><button type="button" data-col="referencia">Ponto de Referência</button></th>
+              <th><button type="button" data-col="status">Status</button></th>
+              <th><span class="sr">Ver</span></th>
+            </tr>
+          </thead>
+          <tbody id="corpo"></tbody>
+        </table>
+      </div>
+    </div>
+    <p class="erro" id="erro-lista" role="alert" hidden></p>
+  </main>
+
+  <!-- Detalhes -->
+  <dialog class="detalhe" id="detalhe" aria-labelledby="d-titulo">
+    <button type="button" class="fechar" id="d-fechar" aria-label="Fechar">&times;</button>
+    <h2 id="d-titulo"></h2>
+    <span class="selo" id="d-status"></span>
+
+    <h3>Dados da ocorrência</h3>
+    <dl id="d-dados"></dl>
+
+    <h3>Descrição</h3>
+    <p class="descricao" id="d-descricao"></p>
+
+    <div id="d-anexos-area" hidden>
+      <h3>Fotos e anexos</h3>
+      <ul class="anexos" id="d-anexos"></ul>
+    </div>
+
+    <div id="d-contato-area" hidden>
+      <h3>Contato do cidadão</h3>
+      <div class="contato-box"><dl id="d-contato"></dl></div>
+    </div>
+
+    <h3>Andamento</h3>
+    <ol class="hist" id="d-hist"></ol>
+
+    <div id="d-acoes" hidden>
+      <h3>Ações</h3>
+      <p class="acoes-info" id="d-acoes-info" hidden></p>
+      <div id="d-acoes-form">
+        <button type="button" class="btn-sec" id="a-analise">Marcar como em análise</button>
+
+        <fieldset class="acao">
+          <legend>Encaminhar</legend>
+          <label for="a-orgao">Órgão responsável</label>
+          <select id="a-orgao"></select>
+          <label for="a-msg">Mensagem para o cidadão (opcional)</label>
+          <textarea id="a-msg" rows="2" maxlength="500"></textarea>
+          <button type="button" class="btn" id="a-encaminhar">Encaminhar</button>
+        </fieldset>
+
+        <fieldset class="acao">
+          <legend>Arquivar</legend>
+          <label for="a-motivo">Motivo</label>
+          <select id="a-motivo">
+            <option value="">Selecione</option>
+            <option>Fora da competência municipal</option>
+            <option>Manifestação duplicada</option>
+            <option>Informações insuficientes</option>
+            <option>Spam ou teste</option>
+            <option>Outro motivo</option>
+          </select>
+          <label for="a-msg-arq">Explicação para o cidadão (opcional)</label>
+          <textarea id="a-msg-arq" rows="2" maxlength="500"></textarea>
+          <button type="button" class="btn btn-perigo" id="a-arquivar">Arquivar</button>
+        </fieldset>
+      </div>
+      <p class="erro" id="a-erro" role="alert" hidden></p>
+    </div>
+  </dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="api.js"></script>
+  <script src="moderador.js"></script>
+</body>
+</html>

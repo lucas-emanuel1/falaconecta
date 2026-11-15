@@ -6,25 +6,8 @@ const botao = document.getElementById('botao');
 const resultado = document.getElementById('resultado');
 
 /* ---------- Consulta ---------- */
-// TODO: trocar pelo servidor (fetch/Supabase). O servidor deve comparar o código
-// com o hash guardado e devolver SOMENTE status e andamento (nunca dados pessoais).
-async function consultar(protocolo, codigo) {
-  // --- DADOS DE TESTE (apagar quando ligar o servidor) ---
-  if (protocolo === 'SB-2026-00842' && codigo === '7K9P-42XM') {
-    return {
-      protocolo,
-      status: 'Em análise',
-      categoria: 'Iluminação pública',
-      bairro: 'Centro',
-      criadaEm: '2026-11-10T09:30:00-03:00',
-      historico: [
-        { status: 'Recebida', texto: 'Manifestação recebida e aguardando análise.', data: '2026-11-10T09:30:00-03:00' },
-        { status: 'Em análise', texto: 'A equipe da Ouvidoria está avaliando o caso.', data: '2026-11-11T14:10:00-03:00' },
-      ],
-    };
-  }
-  return null;
-}
+// Consulta no servidor (Supabase). Devolve o andamento ou null se protocolo/código não baterem.
+const consultar = (protocolo, codigo) => Api.consultar(protocolo, codigo);
 
 /* ---------- Normalização e validação ---------- */
 const normalizarProtocolo = (v) => v.trim().toUpperCase();
@@ -79,7 +62,9 @@ form.addEventListener('submit', async (e) => {
     mostrarResultado(m);
   } catch (err) {
     console.error(err);
-    mostrarErro('Não foi possível consultar agora. Tente novamente em instantes.');
+    mostrarErro(String(err && err.message).includes('limite_excedido')
+      ? 'Muitas consultas em pouco tempo. Tente novamente mais tarde.'
+      : 'Não foi possível consultar agora. Tente novamente em instantes.');
   } finally {
     botao.disabled = false;
     botao.textContent = 'Acompanhar';

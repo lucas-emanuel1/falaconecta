@@ -8,7 +8,8 @@ const sucesso = document.getElementById('sucesso');
 
 const MAX_ARQUIVOS = 5;
 const MAX_MB = 5;
-const TIPOS_OK = /^(image\/|application\/pdf$|application\/msword$|application\/vnd\.openxmlformats-officedocument\.wordprocessingml\.document$)/;
+const TIPOS_OK = /^(image\/(jpeg|png|webp|gif)|application\/pdf|application\/msword|application\/vnd\.openxmlformats-officedocument\.wordprocessingml\.document)$/;
+const MAX_FOTO_MB = 20; // imagens são reduzidas antes de enviar
 
 let arquivos = []; // arquivos escolhidos (o input sozinho não deixa remover um por um)
 
@@ -44,7 +45,9 @@ inputArquivos.addEventListener('change', () => {
   const problemas = [];
   [...inputArquivos.files].forEach((f) => {
     if (!TIPOS_OK.test(f.type)) problemas.push(`"${f.name}" não é um tipo permitido.`);
-    else if (f.size > MAX_MB * 1024 * 1024) problemas.push(`"${f.name}" passa de ${MAX_MB} MB.`);
+    else if (f.size > (f.type.startsWith('image/') ? MAX_FOTO_MB : MAX_MB) * 1024 * 1024) {
+      problemas.push(`"${f.name}" passa de ${f.type.startsWith('image/') ? MAX_FOTO_MB : MAX_MB} MB.`);
+    }
     else if (arquivos.length >= MAX_ARQUIVOS) problemas.push(`Limite de ${MAX_ARQUIVOS} arquivos atingido.`);
     else arquivos.push(f);
   });
@@ -59,8 +62,9 @@ const msgDe = (campo) => campo.closest('.campo').querySelector('.erro');
 function mostrarErro(campo) { campo.classList.add('invalido'); msgDe(campo).hidden = false; }
 function limparErro(campo) { campo.classList.remove('invalido'); msgDe(campo).hidden = true; }
 
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
+  if (form.site && form.site.value) return; // campo-isca preenchido: é um robô, ignora em silêncio
   sucesso.hidden = true;
 
   const regras = [
@@ -74,8 +78,30 @@ form.addEventListener('submit', (e) => {
   });
   if (primeiro) { primeiro.focus(); return; }
 
-  // TODO: enviar os dados ao servidor aqui (fetch/Supabase)
-  console.log({ tipo: tipo.value, descricao: descricao.value.trim(), arquivos: arquivos.map((f) => f.name) });
+  const botao = form.querySelector('.enviar');
+  const textoBotao = botao.textContent;
+  botao.disabled = true;
+  botao.textContent = 'Enviando...';
+  try {
+    // 1) envia os arquivos (se tiver) para o balde privado; 2) envia a sugestão com a lista
+    const anexos = await Api.enviarArquivos(arquivos);
+    await Api.enviar({
+      tipo: 'sugestao',
+      identificada: false,
+      categoria: tipo.value,            // aqui "categoria" guarda o tipo da sugestão
+      descricao: descricao.value.trim(),
+      anexos,
+    });
+  } catch (err) {
+    console.error(err);
+    alert(String(err && err.message).includes('limite_excedido')
+      ? 'Muitos envios em pouco tempo. Tente novamente mais tarde.'
+      : 'Não foi possível enviar agora. Tente novamente em instantes.');
+    return;
+  } finally {
+    botao.disabled = false;
+    botao.textContent = textoBotao;
+  }
 
   sucesso.hidden = false;
   form.reset();
