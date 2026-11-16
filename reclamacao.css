@@ -163,3 +163,14 @@ body.alto-contraste .menu-btn span { background: #fff; }
 
 /* Campo-isca anti-robô */
 .isca { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* Botão da câmera */
+.btn-camera {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; margin-top: 10px; padding: 10px 14px;
+  border: 1px solid var(--azul); border-radius: 8px;
+  color: var(--azul); font-size: .95rem; background: #fff;
+}
+.btn-camera:hover { background: #eef5fc; }
+.btn-camera[hidden] { display: none; }
+.dica-foto { margin-top: 8px; font-size: .8rem; color: #888; }

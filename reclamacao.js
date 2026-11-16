@@ -43,6 +43,23 @@ foto.addEventListener('change', () => {
   if (ok) preview.src = URL.createObjectURL(ok);
 });
 
+/* ---------- Câmera (celular/tablet) ---------- */
+// "capture" abre direto a câmera. É um campo separado para a galeria continuar disponível
+// (a pessoa pode ter tirado a foto antes, sem internet, e enviar depois).
+const fotoCamera = document.getElementById('foto-camera');
+const btnCamera = document.getElementById('btn-camera');
+if (window.matchMedia('(pointer: coarse)').matches) btnCamera.hidden = false; // só em telas de toque
+btnCamera.addEventListener('click', () => fotoCamera.click());
+fotoCamera.addEventListener('change', () => {
+  const arquivo = fotoCamera.files[0];
+  if (!arquivo) return;
+  const dt = new DataTransfer();
+  dt.items.add(arquivo);
+  foto.files = dt.files;                      // passa a foto para o campo principal
+  fotoCamera.value = '';
+  foto.dispatchEvent(new Event('change'));    // reaproveita a validação e a pré-visualização
+});
+
 /* ---------- Validação ---------- */
 const msgDe = (campo) => campo.closest('.campo, .opcao').querySelector('.erro');
 function mostrarErro(campo) { campo.classList.add('invalido'); msgDe(campo).hidden = false; }
