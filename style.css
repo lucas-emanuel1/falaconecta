@@ -75,7 +75,7 @@ button {
   color: #fff;
   /* Duas versões para avaliar */
   /* background: linear-gradient(rgba(10,111,208,.55), rgba(10,111,208,.55)), url("imagens/bg-header.png") center/cover, var(--azul); */
-  background: linear-gradient(to bottom, rgba(10,111,208,.55) 40%, rgba(17, 17, 17, 0.55) 60%), url("https://s2-g1.glbimg.com/ueT8Ow10rOkGHTR8VRAwOei8qb8=/0x0:800x687/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2017/R/W/P2JelgQWGnWB5BQ4ke8g/sobral2.jpg") center/cover, var(--azul);
+  background: linear-gradient(to bottom, rgba(10,111,208,.55) 40%, rgba(17, 17, 17, 0.55) 60%), url("imagens/bg-header2.png") center/cover, var(--azul);
 }
 .nav {
   display: flex;
@@ -123,6 +123,7 @@ button {
   text-align: center;
   background: rgba(255,255,255,.18);
   backdrop-filter: blur(12px);
+  border-radius: 1rem;
 }
 .hero-box h1 {
   font-size: 1.26rem;
