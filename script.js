@@ -1,4 +1,4 @@
-// Menu hambúrguer
+// Menu
 const menuBtn = document.getElementById('menu-btn');
 const menu = document.getElementById('menu');
 menuBtn.addEventListener('click', () => {
@@ -24,7 +24,7 @@ document.getElementById('contrast').addEventListener('click', () => {
 const carrossel = document.getElementById('carrossel');
 if (carrossel) {
   const slides = [...carrossel.querySelectorAll('.slide')];
-  const INTERVALO = 4000; // tempo em ms entre um slide e outro
+  const INTERVALO = 4000;
   const reduzirMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let atual = 0;
   let timer = null;
@@ -34,7 +34,7 @@ if (carrossel) {
     const esquerda = s.offsetLeft - carrossel.offsetLeft - (carrossel.clientWidth - s.clientWidth) / 2;
     carrossel.scrollTo({ left: esquerda, behavior: 'smooth' });
   };
-  const proximo = () => irPara((atual + 1) % slides.length); // volta ao primeiro no fim
+  const proximo = () => irPara((atual + 1) % slides.length);
 
   const iniciar = () => {
     if (reduzirMovimento || slides.length < 2) return;
@@ -43,23 +43,20 @@ if (carrossel) {
   };
   const parar = () => { clearInterval(timer); timer = null; };
 
-  // Descobre qual slide está visível (inclusive quando o usuário arrasta com o dedo)
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((e) => { if (e.isIntersecting) atual = slides.indexOf(e.target); });
   }, { root: carrossel, threshold: 0.6 });
   slides.forEach((s) => observer.observe(s));
 
-  // Pausa enquanto o usuário interage e retoma depois
   ['pointerdown', 'mouseenter', 'focusin'].forEach((ev) => carrossel.addEventListener(ev, parar));
   ['pointerup', 'pointercancel', 'touchend', 'mouseleave', 'focusout'].forEach((ev) => carrossel.addEventListener(ev, iniciar));
 
-  // Não gasta bateria com a aba em segundo plano
   document.addEventListener('visibilitychange', () => (document.hidden ? parar() : iniciar()));
 
   iniciar();
 }
 
-// FAQ (acordeão)
+// FAQ
 document.querySelectorAll('.faq-q').forEach((btn) => {
   btn.addEventListener('click', () => {
     const item = btn.parentElement;

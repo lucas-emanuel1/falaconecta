@@ -1,3 +1,4 @@
+// Variáveis
 const form = document.getElementById('form');
 const campoProtocolo = document.getElementById('protocolo');
 const campoCodigo = document.getElementById('codigo');
@@ -5,11 +6,10 @@ const erro = document.getElementById('erro');
 const botao = document.getElementById('botao');
 const resultado = document.getElementById('resultado');
 
-/* ---------- Consulta ---------- */
-// Consulta no servidor (Supabase). Devolve o andamento ou null se protocolo/código não baterem.
+/* Consulta */
 const consultar = (protocolo, codigo) => Api.consultar(protocolo, codigo);
 
-/* ---------- Normalização e validação ---------- */
+/* Normalização e validação */
 const normalizarProtocolo = (v) => v.trim().toUpperCase();
 function normalizarCodigo(v) {
   const limpo = v.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
@@ -21,7 +21,7 @@ const codigoValido = (c) => /^[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(c);
 const mostrarErro = (msg) => { erro.textContent = msg; erro.hidden = false; };
 const fmt = (iso) => new Date(iso).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
 
-/* ---------- Envio ---------- */
+/* Envio */
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   erro.hidden = true;
@@ -55,7 +55,6 @@ form.addEventListener('submit', async (e) => {
   try {
     const m = await consultar(protocolo, codigo);
     if (!m) {
-      // Mesma mensagem para protocolo errado ou código errado (não revela qual falhou)
       mostrarErro('Protocolo ou código de acesso incorretos.');
       return;
     }
@@ -78,7 +77,7 @@ function mostrarResultado(m) {
 
   const lista = document.getElementById('r-historico');
   lista.innerHTML = '';
-  [...m.historico].reverse().forEach((h) => { // mais recente primeiro
+  [...m.historico].reverse().forEach((h) => {
     const li = document.createElement('li');
     const forte = document.createElement('strong');
     forte.textContent = h.status;
@@ -92,7 +91,6 @@ function mostrarResultado(m) {
   resultado.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// Tira o aviso assim que o usuário volta a digitar
 [campoProtocolo, campoCodigo].forEach((c) =>
   c.addEventListener('input', () => { c.classList.remove('invalido'); erro.hidden = true; })
 );

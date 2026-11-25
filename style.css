@@ -75,7 +75,7 @@ button {
   color: #fff;
   /* Duas versões para avaliar */
   /* background: linear-gradient(rgba(10,111,208,.55), rgba(10,111,208,.55)), url("imagens/bg-header.png") center/cover, var(--azul); */
-  background: linear-gradient(to bottom, rgba(10,111,208,.55) 40%, rgba(17, 17, 17, 0.55) 60%), url("imagens/bg-header2.png") center/cover, var(--azul);
+  background: linear-gradient(to bottom, rgba(10,111,208,.55) 40%, rgba(17, 17, 17, 0.55) 60%), url("imagens/bg-header.png") center/cover, var(--azul);
 }
 .nav {
   display: flex;
@@ -151,9 +151,11 @@ button {
   padding: 24px 10px;
   border-radius: 4px;
   transition: all .15s ease-in-out;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .10);
 }
 .canal:hover {
   transform: scale(1.01);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .14);
 }
 .canal:active {
   transform: scale(.98);
@@ -165,20 +167,21 @@ button {
   font-size: 1.16rem;
   font-weight: 400;
   margin-bottom: 8px;
+  color: #1f1f1f;
 }
 .canal p {
   font-size: .9rem;
-  color: var(--cinza);
+  color: #3a3a3a;
   font-weight: 400;
 }
 .canal--rosa {
-  background: var(--rosa);
+  background: linear-gradient(135deg, #f8dcdc 0%, #e9b1b4 100%);
 }
 .canal--verde {
-  background: var(--verde);
+  background: linear-gradient(135deg, #d3ebdf 0%, #a8d2bd 100%);
 }
 .canal--azul {
-  background: var(--azul-claro);
+  background: linear-gradient(135deg, #deedf7 0%, #b4d3e8 100%);
 }
 
 /* Avisos */
@@ -187,9 +190,10 @@ button {
   margin-block: 56px;
 }
 .dicas h2 {
-  font-size: 1.8rem;
-  font-weight: 400;
   padding: 0 16px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--cinza);
   margin-bottom: 20px;
 }
 .carrossel {

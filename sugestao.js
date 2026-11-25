@@ -1,3 +1,4 @@
+// Variáveis
 const form = document.getElementById('form');
 const tipo = document.getElementById('tipo');
 const descricao = document.getElementById('descricao');
@@ -9,11 +10,11 @@ const sucesso = document.getElementById('sucesso');
 const MAX_ARQUIVOS = 5;
 const MAX_MB = 5;
 const TIPOS_OK = /^(image\/(jpeg|png|webp|gif)|application\/pdf|application\/msword|application\/vnd\.openxmlformats-officedocument\.wordprocessingml\.document)$/;
-const MAX_FOTO_MB = 20; // imagens são reduzidas antes de enviar
+const MAX_FOTO_MB = 20;
 
-let arquivos = []; // arquivos escolhidos (o input sozinho não deixa remover um por um)
+let arquivos = [];
 
-/* ---------- Anexos ---------- */
+/* Anexos */
 function sincronizarInput() {
   const dt = new DataTransfer();
   arquivos.forEach((f) => dt.items.add(f));
@@ -57,14 +58,14 @@ inputArquivos.addEventListener('change', () => {
   erroArquivos.hidden = problemas.length === 0;
 });
 
-/* ---------- Validação ---------- */
+/* Validação */
 const msgDe = (campo) => campo.closest('.campo').querySelector('.erro');
 function mostrarErro(campo) { campo.classList.add('invalido'); msgDe(campo).hidden = false; }
 function limparErro(campo) { campo.classList.remove('invalido'); msgDe(campo).hidden = true; }
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  if (form.site && form.site.value) return; // campo-isca preenchido: é um robô, ignora em silêncio
+  if (form.site && form.site.value) return;
   sucesso.hidden = true;
 
   const regras = [
@@ -83,12 +84,11 @@ form.addEventListener('submit', async (e) => {
   botao.disabled = true;
   botao.textContent = 'Enviando...';
   try {
-    // 1) envia os arquivos (se tiver) para o balde privado; 2) envia a sugestão com a lista
     const anexos = await Api.enviarArquivos(arquivos);
     await Api.enviar({
       tipo: 'sugestao',
       identificada: false,
-      categoria: tipo.value,            // aqui "categoria" guarda o tipo da sugestão
+      categoria: tipo.value,
       descricao: descricao.value.trim(),
       anexos,
     });
@@ -109,7 +109,6 @@ form.addEventListener('submit', async (e) => {
   desenharLista();
 });
 
-// Tira o aviso de erro assim que o usuário corrige
 ['input', 'change'].forEach((ev) =>
   form.addEventListener(ev, (e) => {
     if (e.target.classList.contains('invalido')) limparErro(e.target);
